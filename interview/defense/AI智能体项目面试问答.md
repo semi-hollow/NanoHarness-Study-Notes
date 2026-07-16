@@ -16,7 +16,7 @@
 
 项目映射：
 
-- `agent_forge/runtime/agent_loop.py`
+- `agent_forge/runtime/application/agent_loop.py`
 - `agent_forge/runtime/control.py`
 - `agent_forge/observability/trace.py`
 - UI: `Show Trace Timeline`
@@ -405,7 +405,7 @@
 项目映射：
 
 - `failure_taxonomy`
-- `regression-set core`
+- `regression-set smoke-5`
 - `evaluation_report.md`
 
 ## 28. 为什么要 direct baseline（直接基线）？
@@ -511,7 +511,7 @@
 证据：
 
 - UI: `Show Interview Evidence`
-- `agent_forge/runtime/agent_loop.py`
+- `agent_forge/runtime/application/agent_loop.py`
 - `agent_forge/multi_agent/coordinator.py`
 
 ## 37. 这个项目离生产系统还差什么？

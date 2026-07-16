@@ -33,7 +33,7 @@ Concrete side effect
 - `agent_forge/safety/sandbox.py`
 - `agent_forge/safety/permission.py`
 - `agent_forge/safety/command_policy.py`
-- `agent_forge/runtime/agent_loop.py`
+- `agent_forge/runtime/application/agent_loop.py`
 
 ## 3. 具体边界
 

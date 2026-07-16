@@ -28,7 +28,7 @@
 
 - 核心回复：AgentLoop 是 runtime 控制平面，负责上下文组装、模型调用、tool call（工具调用） 解析、权限检查、工具执行、observation 写回、trace/usage、停止条件。
 - 面试官想听：模型只负责提出动作，runtime 负责可控性、审计、失败恢复和停止。
-- 项目映射：`agent_forge/runtime/agent_loop.py`、`control.py`、`observability/trace.py`。
+- 项目映射：`agent_forge/runtime/application/agent_loop.py`、`runtime/control.py`、`observability/trace.py`。
 
 ### 为什么要多 Agent？单 Agent + Skills 不够吗？
 
@@ -152,13 +152,13 @@
 
 - 核心回复：有。必须限制改动范围、人工审批高风险策略、固定 regression、输出 diff 和指标对比。
 - 面试官想听：自演进的核心是治理，不是“自动变聪明”。
-- 项目映射：`forge bench swebench --regression-set core`。
+- 项目映射：`forge bench cases`、`forge bench swebench --regression-set smoke-5`。
 
 ### 如何做评测集？如何做提示词自优化？
 
 - 核心回复：按真实场景收集任务，覆盖成功、失败、边界、安全；提示词优化必须先在固定集上 A/B，再进灰度。
 - 面试官想听：评测集要防数据泄漏和只优化单一指标。
-- 项目映射：SWE-bench Lite/core set 已作为外部闭环。
+- 项目映射：SWE-bench Lite/Smoke-5 已作为低成本外部闭环，但不代表总体结果。
 
 ### Agent 的评测为什么不能只看最终成功率？
 

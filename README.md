@@ -20,6 +20,7 @@
 
 ## 面试准备
 
+- [2026-07-17 NanoHarness 模拟面试复盘与标准回答](interview/answers/2026-07-17_NanoHarness模拟面试复盘与标准回答.md)
 - [Clowder 面经回答思路：NanoHarness 查漏补缺版](interview/answers/Clowder_AI_Agent_面经回答思路_NanoHarness查漏补缺.md)
 - [Clowder AI Agent 面经精练版](interview/references/Clowder_AI_Agent_面经精练版.md)
 - [五分钟演示脚本](interview/demo/五分钟面试演示脚本.md)

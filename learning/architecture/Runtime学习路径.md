@@ -222,9 +222,9 @@ Resume 会校验 plan digest、base identity 和 patch hash，只复用 accepted
 
 ```bash
 forge bench swebench \
-  --regression-set core-five \
-  --limit 1 \
+  --regression-set smoke-5 \
   --provider deepseek \
+  --temperature 0 \
   --direct-baseline
 ```
 

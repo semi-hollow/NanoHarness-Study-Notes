@@ -37,7 +37,9 @@ forge bench swebench --showcase --agent-mode compare --profile coding_fix --prov
 单个 showcase loop 稳定后，再使用固定 regression set：
 
 ```bash
-forge bench swebench --regression-set core --provider deepseek --direct-baseline
+forge bench cases
+forge bench case astropy__astropy-12907
+forge bench swebench --regression-set smoke-5 --provider deepseek --temperature 0 --direct-baseline
 ```
 
 固定 regression loop 稳定后，再扩大到更大的 sample：
