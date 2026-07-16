@@ -1,0 +1,13 @@
+.DS_Store
+.idea/
+
+# 本地运行现场与大体积归档不进入学习资料仓库。
+local-archive/
+**/.agent_forge/
+*.bundle
+*.pdf
+
+# 编辑器和临时文件。
+*.swp
+*.tmp
+*~
