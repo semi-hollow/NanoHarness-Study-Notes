@@ -20,6 +20,7 @@
 
 ## 面试准备
 
+- [北京 Agent 招聘市场与 NanoHarness 定位：项目策略、质疑应答和展示方案](interview/strategy/2026-07-19_北京Agent招聘市场与NanoHarness定位.md)
 - [2026-07-17 NanoHarness 模拟面试复盘与标准回答](interview/answers/2026-07-17_NanoHarness模拟面试复盘与标准回答.md)
 - [Clowder 面经回答思路：NanoHarness 查漏补缺版](interview/answers/Clowder_AI_Agent_面经回答思路_NanoHarness查漏补缺.md)
 - [Clowder AI Agent 面经精练版](interview/references/Clowder_AI_Agent_面经精练版.md)
@@ -37,7 +38,7 @@
 | `learning/capabilities/` | Runtime、Multi-Agent 等核心能力导览 |
 | `learning/evaluation/` | Evaluation、SWE-bench 和证据阅读入口 |
 | `learning/legacy/` | 仍有参考价值但可能落后于当前实现的旧版学习资料 |
-| `interview/` | 面经、回答稿、演示脚本和技术防守材料 |
+| `interview/` | 市场策略、面经、回答稿、演示脚本和技术防守材料 |
 | `history/` | 历史设计规格、实施计划和 handoff，仅用于理解演进过程 |
 | `local-archive/` | Git bundle、PDF、完整 demo evidence 等本地归档，不推送 GitHub |
 
