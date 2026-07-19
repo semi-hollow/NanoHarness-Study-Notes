@@ -405,6 +405,42 @@ AgentLoop。
 - 不继续堆新的 Runtime 名词，直到现有能力产生量化结果。
 - 不把固定模型 showcase 当作 Agent 推理能力证据。
 
+### 9.1 本轮实际落地状态
+
+这次没有把 NanoHarness 重写成 OpenCode、OpenClaw 或 LangGraph 项目，也没有继续增加新的
+Runtime 名词。实际改动严格围绕“产品任务 -> 治理执行 -> 评测证据”展开：
+
+1. GitHub 首页和 Python package 描述改为“面向真实代码仓库的可治理软件工程智能体与评测
+   工作台”，不再以“自研通用 Runtime 框架”作为第一印象。
+2. Workbench 主导航收敛为 `Overview -> Run Evidence -> Benchmark`，先展示任务结果，再展示
+   控制面事实，最后展示重复实验和 claim boundary。
+3. 新增 `forge bench campaign`：固定 Smoke-5、模型、温度、预算、安全策略和执行环境，默认
+   执行五题、两个 preset、三次重复，共 30 个 run slot。
+4. 主 baseline 不再使用“完全无工具”的 direct model。`minimal-control` 与
+   `governed-runtime` 复用同一正式 AgentLoop、模型、任务输入、预算和安全边界；前者关闭
+   Skill 并暴露完整工具集，后者启用 task-aware routing 和内置 Skill。最终 assembled
+   context 会随 Skill 改变，因此不能把 prompt 宣称为固定变量。
+5. 这两个 preset 同时改变 routing 与 Skill，因此报告明确标记为 multi-factor
+   `runtime-preset` comparison，不伪装成单因素因果实验。单因素问题仍使用已有 matched
+   ablation。
+6. Campaign 在每个槽位前后原子保存 checkpoint；相同 campaign id、config digest 和 source
+   revision 恢复时跳过 completed，只重试 running/failed，避免中断后重复付费或混入另一版
+   代码。
+7. `--publish` 只导出 source revision、配置摘要、聚合指标、公开 scorecard SHA 和脱敏
+   per-run result，不导出密钥、本机路径、raw prompt、trace 内容或 patch 正文；SHA 对应实际
+   公开文件，而不是无法由面试官校验的私有原文件。
+8. Workbench 的 Benchmark 页面直接显示 planned/completed/failed、candidate/local/official
+   分母、paired official wins/ties 和完整 run matrix；没有双方 official outcome 时，页面明确
+   显示 correctness unknown。
+
+仍然没有完成的是**真实结果本身**。当前开发机存在模型凭据和 Hugging Face dataset 依赖，
+但没有 SWE-bench package，也没有 Docker-compatible runtime，所以不能产生 official
+resolved/unresolved artifact。本轮只完成实验控制面、恢复、聚合和展示，不运行一批昂贵但
+无法 official 验收的 candidate-only 数据，也不把它们写进 CV。
+
+因此截至目前的准确判断是：**项目形态已经调整到适合面试的方向，代码已具备执行正式
+campaign 的能力；项目效果是否成立，仍要由后续真实 official campaign 可证伪地回答。**
+
 ## 10. 五分钟展示面
 
 ### 0:00 到 0:30：一句话和问题
