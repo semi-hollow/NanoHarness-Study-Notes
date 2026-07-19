@@ -1,0 +1,13 @@
+name: Documentation structure
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate document ownership and learning feedback
+        run: python3 scripts/check_docs.py

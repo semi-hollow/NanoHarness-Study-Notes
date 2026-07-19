@@ -1,50 +1,91 @@
-# NanoHarness 学习与面试笔记
+# NanoHarness 学习训练册
 
-这是 NanoHarness 的个人学习、代码阅读和面试准备仓库。
+这个仓库不追求“资料齐全”，只服务两个结果：
 
-运行时代码、正式架构契约、能力边界和评测证据属于
-[NanoHarness](https://github.com/semi-hollow/NanoHarness)；教学材料和个人准备内容统一维护在这里，避免公开项目仓库同时承担产品展示和学习笔记两种职责。
+1. 能闭卷解释 NanoHarness 的关键设计、证据和边界。
+2. 能在代码与现场命令中快速证明自己的回答。
 
-## 推荐阅读顺序
+运行代码、正式架构和公开 claim 以
+[NanoHarness](https://github.com/semi-hollow/NanoHarness)为准。本仓库只保存学习训练、
+面试演示和个人定位材料。**本 README 是文档结构的唯一控制入口。**
 
-1. [Agent Forge 总体架构与运行链路](learning/architecture/AgentForge总体架构与运行链路.md)
-2. [Python 分层与调用关系](learning/architecture/Python分层与调用关系.md)
-3. [NanoHarness 代码阅读地图](learning/architecture/NanoHarness代码阅读地图.md)
-4. [Runtime 学习路径](learning/architecture/Runtime学习路径.md)
-5. [核心组件索引与职责边界](learning/architecture/核心组件索引与职责边界.md)
-6. [上下文、记忆与模型适配](learning/architecture/上下文记忆与模型适配.md)
-7. [Runtime 能力导览](learning/capabilities/Runtime能力导览.md)
-8. [Multi-Agent 协作与对比评测](learning/capabilities/多Agent协作机制与对比评测说明.md)
-9. [评测目录与 SWE-bench 使用入口](learning/evaluation/评测目录说明与SWE-bench使用入口.md)
-10. [Benchmark 闭环设计与面试表达](learning/evaluation/Benchmark闭环设计与面试表达.md)
+新设备首次使用时，先按[系统地图与代码入口](learning/01-系统地图与代码入口.md)中的
+“PyCharm 低噪音读码法”安装本地 Scope，再开始闭卷训练。
 
-## 面试准备
+## 唯一学习路线
 
-- [北京 Agent 招聘市场与 NanoHarness 定位：项目策略、质疑应答和展示方案](interview/strategy/2026-07-19_北京Agent招聘市场与NanoHarness定位.md)
-- [2026-07-17 NanoHarness 模拟面试复盘与标准回答](interview/answers/2026-07-17_NanoHarness模拟面试复盘与标准回答.md)
-- [Clowder 面经回答思路：NanoHarness 查漏补缺版](interview/answers/Clowder_AI_Agent_面经回答思路_NanoHarness查漏补缺.md)
-- [Clowder AI Agent 面经精练版](interview/references/Clowder_AI_Agent_面经精练版.md)
-- [五分钟演示脚本](interview/demo/五分钟面试演示脚本.md)
-- [AI Agent 项目问答](interview/defense/AI智能体项目面试问答.md)
-- [Agent Engineer 面试题库](interview/defense/AI智能体项目面试题库.md)
-- [安全边界讲解](interview/defense/Agent安全边界与权限防守说明.md)
-- [失败分类与排查话术](interview/defense/失败分类体系与排查话术.md)
+先测后学，不要从第一篇顺序读到最后一篇。
 
-## 目录职责
+1. 用[闭卷自测与反馈](learning/04-闭卷自测与反馈.md)做一次 30 分钟基线测试。
+2. 只补低分主题：[系统地图与代码入口](learning/01-系统地图与代码入口.md)、
+   [核心机制与设计边界](learning/02-核心机制与设计边界.md)或
+   [Benchmark 与证据闭环](learning/03-Benchmark与证据闭环.md)。
+3. 回到同一份自测，不看资料重新回答并执行现场动作。
+4. 达标后练[五分钟现场演示](interview/demo/五分钟面试演示脚本.md)。
+5. 只在岗位选择或框架质疑时查
+   [北京 Agent 市场与 NanoHarness 定位](interview/strategy/2026-07-19_北京Agent招聘市场与NanoHarness定位.md)。
 
-| 目录 | 内容 |
+原始外部面经只作出题来源，不要求通读：
+[Clowder Agent 面经](interview/references/Clowder_AI_Agent_面经精练版.md)。
+
+## 四类文档
+
+| 分类 | 文档 | 使用时机 |
+| --- | --- | --- |
+| 加深理解 | 01 系统地图、02 核心机制、03 Benchmark | 自测暴露知识缺口后定向阅读 |
+| 检验掌握 | 04 闭卷自测与反馈 | 每轮学习前后，必须留下分数和错误 |
+| 面试反制 | 五分钟演示、岗位定位 | 现场证明能力，预先处理常见质疑 |
+| 外部输入 | Clowder 面经 | 只提供新问题，不作为项目事实来源 |
+
+## 内容唯一归属
+
+同一知识点只能有一个 owner，其他文档只链接，不复制答案。
+
+| 内容 | 唯一 owner |
 | --- | --- |
-| `learning/architecture/` | 架构、分层、调用链和代码阅读地图 |
-| `learning/capabilities/` | Runtime、Multi-Agent 等核心能力导览 |
-| `learning/evaluation/` | Evaluation、SWE-bench 和证据阅读入口 |
-| `learning/legacy/` | 仍有参考价值但可能落后于当前实现的旧版学习资料 |
-| `interview/` | 市场策略、面经、回答稿、演示脚本和技术防守材料 |
-| `history/` | 历史设计规格、实施计划和 handoff，仅用于理解演进过程 |
-| `local-archive/` | Git bundle、PDF、完整 demo evidence 等本地归档，不推送 GitHub |
+| 入口、依赖、数据流、状态流 | `learning/01` |
+| Runtime、Memory、Safety、HITL、Recovery、Multi-Agent | `learning/02` |
+| Case、指标、failure taxonomy、official evidence、实验归因 | `learning/03` |
+| 新问题、回答错误、评分、复测记录 | `learning/04` |
+| 可执行命令、现场展示顺序、失败备用方案 | `interview/demo` |
+| 项目口径、框架选择、岗位匹配、质疑应答 | `interview/strategy` |
+| 第三方原始材料 | `interview/references` |
 
-## 内容边界
+## 新内容决策
 
-- `learning/` 中的最新文档应以 NanoHarness 当前代码为准。
-- `learning/legacy/` 和 `history/` 用于理解历史，不代表当前能力承诺。
-- 面试回答必须区分“已经由 Runtime 执行”“仅有实验接口”和“项目明确不覆盖”。
-- 项目行为或接口发生实质变化时，同步更新相应学习文档，不把教学说明重新放回 NanoHarness。
+新增内容时按顺序判断：
+
+1. 是运行时事实、公开能力或正式证据：更新 NanoHarness 主仓库，不写在这里。
+2. 是帮助理解已有能力：合并进 `learning/01`、`02` 或 `03`。
+3. 是新面试题或一次答错：只加入 `learning/04`，不要再建“回答稿”。
+4. 是现场演示动作：更新五分钟演示脚本。
+5. 是项目定位或质疑处理：更新岗位定位文档。
+6. 是外部原文：放入 `references`；提炼出的答案仍回到上述 owner。
+7. 是实施计划、阶段记录或过时方案：使用 Git issue、commit 或历史，不进入当前学习树。
+
+只有当内容跨越现有 owner、需要独立维护且能进入学习路线时，才允许新建文档；同时必须修改
+本 README 和自动检查白名单。
+
+## 学习与反馈规则
+
+- **先输出，后校对。** 每题先口述或手画，再展开评分锚点。
+- **认得不算会。** 能说定义记 1 分；能讲因果记 2 分；能指代码、命令和边界才记 3 分。
+- **每次只补最低分。** 不重复阅读已经达到 3 分的主题。
+- **必须留下反馈。** 记录漏掉的关键词、说错的事实和下一次验证动作。
+- **间隔复测。** 当天、1 天后、7 天后分别闭卷复测，连续两次 3 分才算掌握。
+
+通过标准：15 题至少 36/45 分，没有 0 分项；四个现场动作均能在五分钟内完成。
+
+## 防劣化门禁
+
+运行：
+
+```bash
+python3 scripts/check_docs.py
+```
+
+检查会拒绝未归类的新 Markdown、超出体量上限、缺少闭卷反馈入口、README 漏链和失效的
+本地链接。各文件上限不是写作目标，而是提醒继续拆除重复内容。
+
+旧实施计划、legacy 导览和重复答案稿已从当前树移除。需要追溯时使用 Git 历史，不再把历史
+材料放回日常阅读入口。

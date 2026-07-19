@@ -11,3 +11,7 @@ local-archive/
 *.swp
 *.tmp
 *~
+
+# 学习辅助脚本的本地 Python 缓存。
+__pycache__/
+*.py[cod]
