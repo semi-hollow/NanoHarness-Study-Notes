@@ -23,6 +23,11 @@ LINE_BUDGETS = {
     "interview/references/Clowder_AI_Agent_面经精练版.md": 350,
 }
 
+# 一手记录不是学习材料的重复副本。缺失或被压成摘要都应阻断 CI。
+PROTECTED_RECORDS = {
+    "records/interviews/2026-07-17_NanoHarness模拟面试复盘与标准回答.md": (180, 260),
+}
+
 REQUIRED_SUPPORT_FILES = (
     "scripts/install_pycharm_navigation.py",
 )
@@ -34,6 +39,10 @@ REQUIRED_SECTIONS = {
     "learning/04-闭卷自测与反馈.md": ("## 闭卷问题", "## 复测记录"),
     "interview/demo/五分钟面试演示脚本.md": ("## 演示后自评",),
     "interview/strategy/2026-07-19_北京Agent招聘市场与NanoHarness定位.md": ("## 自检",),
+    "records/interviews/2026-07-17_NanoHarness模拟面试复盘与标准回答.md": (
+        "## 二、问题诊断表",
+        "## 六、项目问题与本轮处理结果",
+    ),
 }
 
 MARKDOWN_LINK = re.compile(r"(?<!!)\[[^]]*]\(([^)]+)\)")
@@ -71,19 +80,25 @@ def local_link_errors(relative_path: str, content: str) -> list[str]:
 def collect_errors() -> list[str]:
     """执行结构、体量、反馈入口和链接四类校验。"""
     errors: list[str] = []
-    expected = set(LINE_BUDGETS)
+    expected = set(LINE_BUDGETS) | set(PROTECTED_RECORDS)
     actual = tracked_markdown_files()
 
     for path in sorted(actual - expected):
         errors.append(f"未归类 Markdown: {path}")
-    for path in sorted(expected - actual):
+    for path in sorted(set(LINE_BUDGETS) - actual):
         errors.append(f"缺少受控文档: {path}")
+    for path in sorted(set(PROTECTED_RECORDS) - actual):
+        errors.append(f"受保护的一手记录被删除: {path}")
     for relative_path in REQUIRED_SUPPORT_FILES:
         if not (ROOT / relative_path).is_file():
             errors.append(f"缺少学习辅助工具: {relative_path}")
 
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
-    for relative_path, limit in LINE_BUDGETS.items():
+    all_budgets = {
+        **LINE_BUDGETS,
+        **{path: maximum for path, (_, maximum) in PROTECTED_RECORDS.items()},
+    }
+    for relative_path, limit in all_budgets.items():
         path = ROOT / relative_path
         if not path.is_file():
             continue
@@ -91,6 +106,9 @@ def collect_errors() -> list[str]:
         line_count = len(content.splitlines())
         if line_count > limit:
             errors.append(f"{relative_path}: {line_count} 行，超过 {limit} 行上限")
+        minimum = PROTECTED_RECORDS.get(relative_path, (0, limit))[0]
+        if line_count < minimum:
+            errors.append(f"{relative_path}: 受保护记录只剩 {line_count} 行，低于 {minimum} 行")
         for heading in REQUIRED_SECTIONS.get(relative_path, ()):
             if heading not in content:
                 errors.append(f"{relative_path}: 缺少反馈入口 {heading}")
@@ -108,7 +126,10 @@ def main() -> int:
         for error in errors:
             print(f"- {error}")
         return 1
-    print(f"文档治理检查通过：{len(LINE_BUDGETS)} 份受控 Markdown。")
+    print(
+        f"文档治理检查通过：{len(LINE_BUDGETS)} 份主动学习文档，"
+        f"{len(PROTECTED_RECORDS)} 份受保护的一手记录。"
+    )
     return 0
 
 
