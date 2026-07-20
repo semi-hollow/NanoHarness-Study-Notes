@@ -38,12 +38,15 @@ SCOPES = (
         "00 NanoHarness Review Path",
         "file:agent_forge/harness.py||file:agent_forge/runtime/wiring.py||"
         "file:agent_forge/runtime/application/agent_loop.py||"
+        "file:agent_forge/runtime/application/session.py||"
         "file:agent_forge/runtime/application/turn_preparation.py||"
         "file:agent_forge/runtime/application/tool_execution.py||"
+        "file:agent_forge/runtime/application/operation_tracker.py||"
         "file:agent_forge/runtime/application/run_lifecycle.py||"
-        "file:agent_forge/multi_agent/application/live_fanout.py||"
-        "file:agent_forge/bench/application/swebench.py||"
-        "file:agent_forge/bench/application/campaign.py",
+        "file:agent_forge/runtime/domain/task.py||"
+        "file:agent_forge/runtime/domain/operation.py||"
+        "file:agent_forge/observability/domain/event.py||"
+        "file:agent_forge/observability/domain/run_story.py",
     ),
     ScopeSpec(
         "10_NanoHarness_Production_Code.xml",

@@ -73,7 +73,7 @@
 
 ### 1. Harness 定位
 
-- 为什么使用 Claude Code、Codex、Gemini CLI、OpenCode 等现成 Harness，而不是直接调用模型 API？
+- 为什么使用现成 Coding Harness，而不是直接调用模型 API？
 - 模型和 Harness 如何解耦？
 - Harness 的核心职责是什么？
 - Agent CLI、模型和上层协作平台分别负责什么？
