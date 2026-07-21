@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import re
 import subprocess
+from collections import Counter
 from pathlib import Path
 from urllib.parse import unquote
 
@@ -34,6 +35,12 @@ REQUIRED_SUPPORT_FILES = (
 )
 
 REQUIRED_SECTIONS = {
+    "README.md": (
+        "## 文档树：只认这一棵",
+        "## 你现在怎么学",
+        "## 卡住时只按问题路由",
+        "## 绝对不要这样读",
+    ),
     "learning/01-系统地图与代码入口.md": ("## 闭卷检查",),
     "learning/02-核心机制与设计边界.md": ("## 闭卷检查",),
     "learning/03-Benchmark与证据闭环.md": ("## 闭卷检查",),
@@ -48,6 +55,16 @@ REQUIRED_SECTIONS = {
 }
 
 MARKDOWN_LINK = re.compile(r"(?<!!)\[[^]]*]\(([^)]+)\)")
+DOC_MAP_START = "<!-- DOC_MAP:START -->"
+DOC_MAP_END = "<!-- DOC_MAP:END -->"
+FIRST_PASS_ORDER = (
+    "learning/05-从命令到Evidence全链路实操.md",
+    "learning/01-系统地图与代码入口.md",
+    "learning/02-核心机制与设计边界.md",
+    "learning/03-Benchmark与证据闭环.md",
+    "learning/04-闭卷自测与反馈.md",
+    "interview/demo/五分钟面试演示脚本.md",
+)
 
 
 def tracked_markdown_files() -> set[str]:
@@ -65,6 +82,21 @@ def tracked_markdown_files() -> set[str]:
     }
 
 
+def resolved_local_target(relative_path: str, raw_target: str) -> str | None:
+    """把一个本地 Markdown target 归一化为仓库相对路径。"""
+    target = raw_target.strip().split(maxsplit=1)[0].strip("<>")
+    if target.startswith(("http://", "https://", "mailto:", "#")):
+        return None
+    path_part = unquote(target.split("#", 1)[0])
+    if not path_part:
+        return None
+    source = ROOT / relative_path
+    try:
+        return (source.parent / path_part).resolve().relative_to(ROOT).as_posix()
+    except ValueError:
+        return f"../OUTSIDE/{path_part}"
+
+
 def local_link_errors(relative_path: str, content: str) -> list[str]:
     """检查 Markdown 相对链接，不把 URL、邮箱和页内锚点当成本地文件。"""
     errors: list[str] = []
@@ -79,14 +111,60 @@ def local_link_errors(relative_path: str, content: str) -> list[str]:
     return errors
 
 
+def document_map_errors(readme: str, expected_children: set[str]) -> list[str]:
+    """确保唯一文档树恰好挂载全部子文档，并固定首次学习顺序。"""
+    errors: list[str] = []
+    if readme.count(DOC_MAP_START) != 1 or readme.count(DOC_MAP_END) != 1:
+        return ["README 必须且只能包含一组 DOC_MAP marker"]
+    body = readme.split(DOC_MAP_START, 1)[1].split(DOC_MAP_END, 1)[0]
+    targets = [
+        target
+        for raw_target in MARKDOWN_LINK.findall(body)
+        if (target := resolved_local_target("README.md", raw_target))
+        and target.endswith(".md")
+    ]
+    counts = Counter(targets)
+    for path in sorted(expected_children - set(targets)):
+        errors.append(f"文档树漏挂: {path}")
+    for path in sorted(set(targets) - expected_children):
+        errors.append(f"文档树包含未受控 Markdown: {path}")
+    for path, count in sorted(counts.items()):
+        if count != 1:
+            errors.append(f"文档树重复挂载 {path}: {count} 次")
+    if all(path in targets for path in FIRST_PASS_ORDER):
+        positions = [targets.index(path) for path in FIRST_PASS_ORDER]
+        if positions != sorted(positions):
+            errors.append("首次主学习链顺序必须保持 05 -> 01 -> 02 -> 03 -> 04 -> demo")
+    return errors
+
+
+def breadcrumb_errors(relative_path: str, content: str) -> list[str]:
+    """子文档首屏必须显示并链接回唯一总入口。"""
+    first_lines = [line for line in content.splitlines() if line.strip()][:8]
+    opening = "\n".join(first_lines)
+    targets = {
+        resolved_local_target(relative_path, raw_target)
+        for raw_target in MARKDOWN_LINK.findall(opening)
+    }
+    if "[返回总入口]" not in opening or "README.md" not in targets:
+        return [f"{relative_path}: 首屏缺少可用的 [返回总入口] breadcrumb"]
+    if DOC_MAP_START in content or DOC_MAP_END in content:
+        return [f"{relative_path}: 子文档不得创建平行 DOC_MAP"]
+    return []
+
+
 def collect_errors() -> list[str]:
     """执行结构、体量、反馈入口和链接四类校验。"""
     errors: list[str] = []
     expected = set(LINE_BUDGETS) | set(PROTECTED_RECORDS)
     actual = tracked_markdown_files()
+    expected_children = expected - {"README.md"}
 
     for path in sorted(actual - expected):
         errors.append(f"未归类 Markdown: {path}")
+    for path in sorted(actual):
+        if Path(path).name.lower() == "readme.md" and path != "README.md":
+            errors.append(f"禁止平行总入口: {path}")
     for path in sorted(set(LINE_BUDGETS) - actual):
         errors.append(f"缺少受控文档: {path}")
     for path in sorted(set(PROTECTED_RECORDS) - actual):
@@ -96,6 +174,7 @@ def collect_errors() -> list[str]:
             errors.append(f"缺少学习辅助工具: {relative_path}")
 
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    errors.extend(document_map_errors(readme, expected_children))
     all_budgets = {
         **LINE_BUDGETS,
         **{path: maximum for path, (_, maximum) in PROTECTED_RECORDS.items()},
@@ -114,8 +193,8 @@ def collect_errors() -> list[str]:
         for heading in REQUIRED_SECTIONS.get(relative_path, ()):
             if heading not in content:
                 errors.append(f"{relative_path}: 缺少反馈入口 {heading}")
-        if relative_path != "README.md" and relative_path not in readme:
-            errors.append(f"README 未链接受控文档: {relative_path}")
+        if relative_path != "README.md":
+            errors.extend(breadcrumb_errors(relative_path, content))
         errors.extend(local_link_errors(relative_path, content))
     return errors
 

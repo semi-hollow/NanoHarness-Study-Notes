@@ -1,5 +1,7 @@
 # Agent 面经精练版
 
+> 层级：[返回总入口](../../README.md) → B2 外部输入 → 只作题库；不提供项目答案。
+
 > 基于 Clowder AI 项目（https://github.com/zts212653/clowder-ai）相关面经进行去重、压缩与分类整理。仅保留问题，不提供答案。
 
 ## 一、Memory 与上下文管理

@@ -1,5 +1,7 @@
 # Benchmark 与证据闭环
 
+> 层级：[返回总入口](../README.md) → A4 主学习链 → Evidence；顺序只以总入口为准。
+
 Evidence 不是项目最后补的一张成绩表，而是每个 Runtime claim 的验收合同。主演示只讲一个真实
 Run Story；Benchmark 采样和 Campaign 细节降为追问。
 

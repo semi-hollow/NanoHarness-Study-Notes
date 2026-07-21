@@ -1,109 +1,82 @@
-# NanoHarness 学习训练册
+# NanoHarness 学习总入口
 
-这个仓库只服务两个结果：
+**永远只从本页决定下一篇。** 文件编号表示主题 owner，不表示阅读顺序；其他 Markdown 只负责
+一个节点并返回这里。运行事实、代码和正式 claim 以 [NanoHarness](https://github.com/semi-hollow/NanoHarness)
+主仓为准；本页是“我该怎么学”的唯一 owner。
 
-1. 能闭卷解释 NanoHarness 的黄金主链、核心机制、证据和边界。
-2. 面对任意重要 symbol 或 artifact，能快速定位它的上游、下游、存在理由和证据作用。
+> **首次主线指针：从 A1 开始。** A1 未完成时只打开 `learning/05`，从第 0 关执行到完成记录；
+> 完成后回本页进入 A2。不要同时摊开其他文档。
 
-运行代码、正式架构和公开 claim 以
-[NanoHarness](https://github.com/semi-hollow/NanoHarness)为准。本仓库只保存学习训练、面试演示和
-个人定位材料。**本 README 是文档结构的唯一控制入口。**
+## 文档树：只认这一棵
 
-## 唯一学习路线
+<!-- DOC_MAP:START -->
+- **A. 首次必须完成的主学习链**
+  1. **A1 实操落地：**[从命令到 Evidence](learning/05-从命令到Evidence全链路实操.md)——实际执行六个入口、断点、run/resume、Astropy；填写完成记录才退出。
+  2. **A2 建立骨架：**[系统地图与代码入口](learning/01-系统地图与代码入口.md)——用自己的 trace 对照黄金主链，随机定位一个 symbol 才退出。
+  3. **A3 理解机制：**[核心机制与设计边界](learning/02-核心机制与设计边界.md)——闭卷讲 AgentLoop、Context、Tool、HITL、Recovery 的因果与边界。
+  4. **A4 读懂证据：**[Benchmark 与证据闭环](learning/03-Benchmark与证据闭环.md)——用自己的 artifact 区分 candidate/local/official。
+  5. **A5 验收掌握：**[闭卷自测与反馈](learning/04-闭卷自测与反馈.md)——达到 13/15、无 0 分，并通过随机 symbol/artifact 定位。
+  6. **A6 面试交付：**[五分钟现场演示](interview/demo/五分钟面试演示脚本.md)——完整演示并填写演示后自评。
+- **B. 只在出现对应问题时查**
+  - **B1 定位与取舍：**[北京 Agent 市场与 NanoHarness 定位](interview/strategy/2026-07-19_北京Agent招聘市场与NanoHarness定位.md)——岗位、框架质疑、简历口径或范围决策。
+  - **B2 外部题库：**[Clowder Agent 面经](interview/references/Clowder_AI_Agent_面经精练版.md)——只提供新问题，不提供项目事实或答案。
+- **C. 一手档案，只检索、不顺序学习**
+  - **C1 真实面试：**[2026-07-17 模拟面试复盘](records/interviews/2026-07-17_NanoHarness模拟面试复盘与标准回答.md)——保留当时问题、错误和修正依据，不当通用答案稿。
+<!-- DOC_MAP:END -->
 
-先测后学，不按文件顺序通读：
+## 你现在怎么学
 
-1. 用[闭卷自测与反馈](learning/04-闭卷自测与反馈.md)完成五个必会问题。
-2. 如果还没有亲手跑过完整链路，按
-   [从命令到 Evidence：macOS 全链路实操](learning/05-从命令到Evidence全链路实操.md)
-   完成一次 CLI、断点、artifact、resume 和真实 Astropy Case。
-3. 只补最低分主题：[系统地图与代码入口](learning/01-系统地图与代码入口.md)、
-   [核心机制与设计边界](learning/02-核心机制与设计边界.md)或
-   [Benchmark 与证据闭环](learning/03-Benchmark与证据闭环.md)。
-4. 随机抽一个生产 symbol 和一个 run artifact，完成定位训练；不要只重复熟悉入口。
-5. 回到同一份自测闭卷重答，达标后练[五分钟现场演示](interview/demo/五分钟面试演示脚本.md)。
-6. 只在岗位选择、框架质疑或范围决策时查
-   [北京 Agent 市场与 NanoHarness 定位](interview/strategy/2026-07-19_北京Agent招聘市场与NanoHarness定位.md)。
+首次只走：`A1 实操 -> A2 系统 -> A3 机制 -> A4 Evidence -> A5 自测 -> A6 演示`。
 
-原始外部面经只作出题来源，不要求通读：
-[Clowder Agent 面经](interview/references/Clowder_AI_Agent_面经精练版.md)。
+首次通过后改为短循环：`A5 自测 -> 只补最低分的 A2/A3/A4 -> A5 复测 -> A6`。当天、1 天后、
+7 天后复测；连续两次满分的主题退出当前队列。B/C 永远不进入顺序通读。
 
-## 学习范围预算
+## 卡住时只按问题路由
 
-主学习面只有一条黄金主链和五个问题。首次阅读限制在 `00 NanoHarness Review Path` 的
-10–12 个核心文件；CLI parser、序列化细节、Multi/Fanout、Memory、MCP、Skills 和完整 Benchmark
-均为按需追问，不得挤入主演示。
-
-学习时使用三个层级：
-
-| 层级 | 掌握标准 |
-| --- | --- |
-| Core | 能闭卷讲机制，沿调用链找到 owner，并用 artifact 证明结论 |
-| Follow-up | 能解释设计边界和入口；被追问时再展开源码 |
-| Advanced | 知道用途、限制和查询入口，不要求背实现 |
-
-新设备先按[系统地图与代码入口](learning/01-系统地图与代码入口.md)安装 PyCharm Scope。
-
-## 五类文档
-
-| 分类 | 文档 | 使用时机 |
+| 我卡在哪里 | 只打开 | 看到哪里立即停止 |
 | --- | --- | --- |
-| 加深理解 | 01 系统地图、02 核心机制、03 Benchmark | 自测暴露知识缺口后定向阅读 |
-| 检验掌握 | 04 闭卷自测与反馈 | 每轮学习前后，必须留下分数和错误 |
-| 面试反制 | 五分钟演示、岗位定位 | 现场证明能力，预先处理常见质疑 |
-| 外部输入 | Clowder 面经 | 只提供新问题，不作为项目事实来源 |
-| 一手记录 | 开发故障档案、真实面试复盘 | 保留当时事实，用于复查认知变化，不要求顺序通读 |
+| 不会命令、路径、断点、artifact 或 Astropy 实跑 | A1 | 填完完成记录 |
+| 随机类/方法不知道谁调用、为何存在、能否删 | A2 | 两分钟定位题通过 |
+| AgentLoop、Context、Tool、审批或 Resume 讲不清 | A3 | Core 机制和边界；Advanced 不展开 |
+| patch/local/official、producer/consumer 或实验结论混乱 | A4 | claim boundary；不读 JSON renderer |
+| 不知道自己到底会不会 | A5 | 13/15、无 0 分、随机定位通过 |
+| 要准备现场面试 | A6 | 演示后自评完成 |
+| 为什么不用 LangGraph、项目定位、架构或简历口径 | B1 | 只查对应小节 |
+| 某次真实面试为何答错 / 第三方又问了什么 | C1 / B2 | 只取事实或题目，不抄成答案 |
+| 精确 CLI、架构或 Case 事实 | 主仓 Facade / Architecture / Case | 查到一手合同即返回当前节点 |
 
-## 内容唯一归属
+主仓按需入口：[Facade](https://github.com/semi-hollow/NanoHarness/blob/master/docs/architecture/facade-catalog.md)、
+[Architecture](https://github.com/semi-hollow/NanoHarness/blob/master/docs/ARCHITECTURE.md)、
+[Astropy Case](https://github.com/semi-hollow/NanoHarness/blob/master/docs/case-studies/astropy-12907.md)。
 
-同一知识点只能有一个 owner，其他文档只链接，不复制答案。
+## 绝对不要这样读
 
-| 内容 | 唯一 owner |
+- 不按目录或 `01 -> 05` 机械顺读；编号不是顺序。
+- 不通读 NanoHarness 主仓 `docs/`；学习 owner 要求证据时才查一手合同。
+- 不从 B2/C1 开始，也不把第三方材料或一次面试复盘当项目答案。
+- Core 未通过前不读 Memory、Multi/Fanout、MCP、Skills、Campaign。
+- 不学习 tests、JSON/Markdown/HTML renderer、Official 兼容解析和临时目录清理的实现细节。
+- 一个问题只看一个 owner；答完立即回本页，不跨多篇搜平行答案。
+
+## 掌握预算与通过标准
+
+| 层级 | 标准 |
 | --- | --- |
-| 黄金主链、六边形依赖、symbol 定位 | `learning/01` |
-| Runtime、Context、Tool、HITL、Recovery 机制 | `learning/02` |
-| Run Story、artifact 血缘、evaluation 与实验归因 | `learning/03` |
-| 五个必会问题、追问卡、评分与复测记录 | `learning/04` |
-| macOS 核心命令实操顺序、断点和观察记录 | `learning/05` |
-| 五分钟展示取舍、现场话术、失败备用方案 | `interview/demo` |
-| 项目口径、架构取舍、理解成本硬约束、质疑应答 | `interview/strategy` |
-| 第三方原始材料 | `interview/references` |
-| 真实面试复盘 | `records/interviews` |
+| Core | 闭卷讲因果和边界，能沿代码与 artifact 找到证据 |
+| Follow-up | 知道入口和设计取舍，被追问时再展开 |
+| Advanced | 只知道用途、边界和查询入口，不背实现 |
 
-## 受保护的一手记录
+首次代码面限制在 A2 的 10–12 个 Core 文件。总通过标准：A5 至少 13/15 且无 0 分、随机定位通过、
+A1 有真实 run/resume/Local/Official 记录、A6 可在五分钟完成。
 
+## 唯一 owner 与受保护事实
+
+- 同一知识点只能由树中一个节点回答；其他文档只能链接，不复制一套解释。
 - [开发故障档案](https://github.com/semi-hollow/NanoHarness/blob/master/docs/evaluation/failure-driven-improvements.md)
-  是代码仓库中的追加式事实源，不得用摘要替换或移入 Git 历史。
-- [2026-07-17 NanoHarness 模拟面试复盘](records/interviews/2026-07-17_NanoHarness模拟面试复盘与标准回答.md)
-  保留原始问题、当时错误和修正依据，不和通用回答稿合并。
-- 文档清理可以删除重复解释和过时计划；删除、截断或迁移一手记录必须获得用户当次明确确认。
-
-## 新内容决策
-
-新增内容时按顺序判断：
-
-1. 运行时事实、公开能力或正式证据：更新 NanoHarness 主仓库。
-2. 实际开发故障：追加到公开开发故障档案，保留现象到验证的完整链路。
-3. 真实面试及其复盘：保存到 `records/interviews`，不能只留下提炼答案。
-4. 帮助理解已有能力：合并进 `learning/01`、`02` 或 `03`；完整实操步骤只进入 `learning/05`。
-5. 脱离真实事件的新练习题或一次答错：只进入 `learning/04` 的追问和复测记录。
-6. 现场演示动作：更新五分钟演示脚本。
-7. 定位、架构取舍或治理约束：更新现有 strategy owner。
-8. 第三方原始材料：只进入 `interview/references`。
-9. 实施计划、阶段记录或过时方案：使用 Git issue、commit 或历史，不进入学习树。
-
-只有内容跨越现有 owner、需要独立维护且能进入学习路线时，才允许新建文档；同时必须更新
-本 README 和自动检查白名单。不能为同一能力增加平行解释。
-
-## 学习与反馈规则
-
-- **先输出，后校对。** 每题先口述或手画，再看评分锚点。
-- **认得不算会。** 定义记 1 分；因果与边界记 2 分；代码和 evidence 都能定位才记 3 分。
-- **随机定位。** 熟悉 `Harness.run` 不等于能掌握项目；每轮必须换一个 symbol 和 artifact。
-- **每次只补最低分。** 已连续两次达到 3 分的主题退出当前学习队列。
-- **间隔复测。** 当天、1 天后、7 天后复测，并记录可执行的下一动作。
-
-通过标准：五个必会问题至少 13/15 分、没有 0 分；随机 symbol/artifact 定位和五分钟演示均通过。
+  和 C1 是追加式一手事实。删除、截断、迁移或用摘要替换，必须得到用户当次明确确认。
+- 新内容归属：运行事实进主仓；开发故障进故障档案；真实面试进 C1；理解补充进 A2/A3/A4；
+  完整操作进 A1；错题进 A5；现场动作进 A6；定位/治理进 B1；第三方材料进 B2；计划只进 issue/commit/history。
+- 只有现有节点无法归属且能进入学习链时才可新建 Markdown，并必须先更新本页与门禁。
 
 ## 防劣化门禁
 
@@ -111,5 +84,5 @@
 python3 scripts/check_docs.py
 ```
 
-检查拒绝未归类 Markdown、超出体量预算、缺少反馈入口、README 漏链和失效本地链接。文件上限
-不是写作目标；触线时先删除重复内容，不新增一套说明。
+门禁拒绝：第二个 README、未挂到文档树或重复挂载的 Markdown、没有返回总入口的子文档、超预算、
+失效链接，以及一手记录被删除或压缩。
