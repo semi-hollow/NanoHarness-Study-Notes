@@ -88,8 +88,8 @@ SWE-bench 适合验证 repository-level code repair，因为它提供真实 issu
 
 ## 亲手走一次 astropy Case
 
-从环境初始化、只读 Case、DeepSeek run、断点、手工 pytest 到 Official Harness 的唯一操作说明见
-[从命令到 Evidence：macOS 全链路实操](05-从命令到Evidence全链路实操.md)。本页只保留证据语义：
+控制面、真实 DeepSeek、Astropy Local/Official 的唯一动态操作说明见
+[NanoHarness Debug Lab](https://github.com/semi-hollow/NanoHarness/blob/master/examples/debug_lab/README.md)。本页只保留证据语义：
 默认先隐藏 gold/test patch；`schema()` 只公开 Tool 契约，`execute()` 才经 Execution Environment
 启动 pytest；Local verified 必须能回到 trace 中明确的 kind、target/argv、exit code 和输出。依赖缺失、
 未收集测试或手工命令未进入 trace，都不能伪装成 canonical Local PASS。

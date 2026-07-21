@@ -4,14 +4,14 @@
 一个节点并返回这里。运行事实、代码和正式 claim 以 [NanoHarness](https://github.com/semi-hollow/NanoHarness)
 主仓为准；本页是“我该怎么学”的唯一 owner。
 
-> **首次主线指针：从 A1 开始。** A1 未完成时只打开 `learning/05`，从第 0 关执行到完成记录；
+> **首次主线指针：从 A1 开始。** A1 未完成时只打开主仓 Debug Lab，按 1 → 4 调试到底；
 > 完成后回本页进入 A2。不要同时摊开其他文档。
 
 ## 文档树：只认这一棵
 
 <!-- DOC_MAP:START -->
 - **A. 首次必须完成的主学习链**
-  1. **A1 实操落地：**[从命令到 Evidence](learning/05-从命令到Evidence全链路实操.md)——实际执行六个入口、断点、run/resume、Astropy；填写完成记录才退出。
+  1. **A1 动态掌握：**[NanoHarness Debug Lab](https://github.com/semi-hollow/NanoHarness/blob/master/examples/debug_lab/README.md)——按四个共享配置调试控制面、固定修复、真实 DeepSeek 与 Astropy Evidence；断点、fixture、路径和恢复均已准备。
   2. **A2 建立骨架：**[系统地图与代码入口](learning/01-系统地图与代码入口.md)——用自己的 trace 对照黄金主链，随机定位一个 symbol 才退出。
   3. **A3 理解机制：**[核心机制与设计边界](learning/02-核心机制与设计边界.md)——闭卷讲 AgentLoop、Context、Tool、HITL、Recovery 的因果与边界。
   4. **A4 读懂证据：**[Benchmark 与证据闭环](learning/03-Benchmark与证据闭环.md)——用自己的 artifact 区分 candidate/local/official。

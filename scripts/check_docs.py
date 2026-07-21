@@ -19,7 +19,6 @@ LINE_BUDGETS = {
     "learning/02-核心机制与设计边界.md": 220,
     "learning/03-Benchmark与证据闭环.md": 210,
     "learning/04-闭卷自测与反馈.md": 220,
-    "learning/05-从命令到Evidence全链路实操.md": 480,
     "interview/demo/五分钟面试演示脚本.md": 160,
     "interview/strategy/2026-07-19_北京Agent招聘市场与NanoHarness定位.md": 180,
     "interview/references/Clowder_AI_Agent_面经精练版.md": 350,
@@ -45,7 +44,6 @@ REQUIRED_SECTIONS = {
     "learning/02-核心机制与设计边界.md": ("## 闭卷检查",),
     "learning/03-Benchmark与证据闭环.md": ("## 闭卷检查",),
     "learning/04-闭卷自测与反馈.md": ("## 闭卷问题", "## 复测记录"),
-    "learning/05-从命令到Evidence全链路实操.md": ("## 完成记录",),
     "interview/demo/五分钟面试演示脚本.md": ("## 演示后自评",),
     "interview/strategy/2026-07-19_北京Agent招聘市场与NanoHarness定位.md": ("## 自检",),
     "records/interviews/2026-07-17_NanoHarness模拟面试复盘与标准回答.md": (
@@ -58,12 +56,15 @@ MARKDOWN_LINK = re.compile(r"(?<!!)\[[^]]*]\(([^)]+)\)")
 DOC_MAP_START = "<!-- DOC_MAP:START -->"
 DOC_MAP_END = "<!-- DOC_MAP:END -->"
 FIRST_PASS_ORDER = (
-    "learning/05-从命令到Evidence全链路实操.md",
     "learning/01-系统地图与代码入口.md",
     "learning/02-核心机制与设计边界.md",
     "learning/03-Benchmark与证据闭环.md",
     "learning/04-闭卷自测与反馈.md",
     "interview/demo/五分钟面试演示脚本.md",
+)
+EXTERNAL_A1 = (
+    "https://github.com/semi-hollow/NanoHarness/blob/master/"
+    "examples/debug_lab/README.md"
 )
 
 
@@ -117,6 +118,8 @@ def document_map_errors(readme: str, expected_children: set[str]) -> list[str]:
     if readme.count(DOC_MAP_START) != 1 or readme.count(DOC_MAP_END) != 1:
         return ["README 必须且只能包含一组 DOC_MAP marker"]
     body = readme.split(DOC_MAP_START, 1)[1].split(DOC_MAP_END, 1)[0]
+    if body.count(EXTERNAL_A1) != 1:
+        errors.append("文档树必须且只能挂载一次主仓 A1 Debug Lab")
     targets = [
         target
         for raw_target in MARKDOWN_LINK.findall(body)
@@ -134,7 +137,10 @@ def document_map_errors(readme: str, expected_children: set[str]) -> list[str]:
     if all(path in targets for path in FIRST_PASS_ORDER):
         positions = [targets.index(path) for path in FIRST_PASS_ORDER]
         if positions != sorted(positions):
-            errors.append("首次主学习链顺序必须保持 05 -> 01 -> 02 -> 03 -> 04 -> demo")
+            errors.append("首次主学习链顺序必须保持 A1 Debug Lab -> 01 -> 02 -> 03 -> 04 -> demo")
+    if EXTERNAL_A1 in body and "learning/01-系统地图与代码入口.md" in body:
+        if body.index(EXTERNAL_A1) > body.index("learning/01-系统地图与代码入口.md"):
+            errors.append("A1 Debug Lab 必须位于 A2 系统地图之前")
     return errors
 
 
