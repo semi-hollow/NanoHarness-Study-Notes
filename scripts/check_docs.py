@@ -18,6 +18,7 @@ LINE_BUDGETS = {
     "learning/02-核心机制与设计边界.md": 220,
     "learning/03-Benchmark与证据闭环.md": 210,
     "learning/04-闭卷自测与反馈.md": 220,
+    "learning/05-从命令到Evidence全链路实操.md": 480,
     "interview/demo/五分钟面试演示脚本.md": 160,
     "interview/strategy/2026-07-19_北京Agent招聘市场与NanoHarness定位.md": 180,
     "interview/references/Clowder_AI_Agent_面经精练版.md": 350,
@@ -37,6 +38,7 @@ REQUIRED_SECTIONS = {
     "learning/02-核心机制与设计边界.md": ("## 闭卷检查",),
     "learning/03-Benchmark与证据闭环.md": ("## 闭卷检查",),
     "learning/04-闭卷自测与反馈.md": ("## 闭卷问题", "## 复测记录"),
+    "learning/05-从命令到Evidence全链路实操.md": ("## 完成记录",),
     "interview/demo/五分钟面试演示脚本.md": ("## 演示后自评",),
     "interview/strategy/2026-07-19_北京Agent招聘市场与NanoHarness定位.md": ("## 自检",),
     "records/interviews/2026-07-17_NanoHarness模拟面试复盘与标准回答.md": (

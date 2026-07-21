@@ -14,12 +14,15 @@
 先测后学，不按文件顺序通读：
 
 1. 用[闭卷自测与反馈](learning/04-闭卷自测与反馈.md)完成五个必会问题。
-2. 只补最低分主题：[系统地图与代码入口](learning/01-系统地图与代码入口.md)、
+2. 如果还没有亲手跑过完整链路，按
+   [从命令到 Evidence：macOS 全链路实操](learning/05-从命令到Evidence全链路实操.md)
+   完成一次 CLI、断点、artifact、resume 和真实 Astropy Case。
+3. 只补最低分主题：[系统地图与代码入口](learning/01-系统地图与代码入口.md)、
    [核心机制与设计边界](learning/02-核心机制与设计边界.md)或
    [Benchmark 与证据闭环](learning/03-Benchmark与证据闭环.md)。
-3. 随机抽一个生产 symbol 和一个 run artifact，完成定位训练；不要只重复熟悉入口。
-4. 回到同一份自测闭卷重答，达标后练[五分钟现场演示](interview/demo/五分钟面试演示脚本.md)。
-5. 只在岗位选择、框架质疑或范围决策时查
+4. 随机抽一个生产 symbol 和一个 run artifact，完成定位训练；不要只重复熟悉入口。
+5. 回到同一份自测闭卷重答，达标后练[五分钟现场演示](interview/demo/五分钟面试演示脚本.md)。
+6. 只在岗位选择、框架质疑或范围决策时查
    [北京 Agent 市场与 NanoHarness 定位](interview/strategy/2026-07-19_北京Agent招聘市场与NanoHarness定位.md)。
 
 原始外部面经只作出题来源，不要求通读：
@@ -61,7 +64,8 @@
 | Runtime、Context、Tool、HITL、Recovery 机制 | `learning/02` |
 | Run Story、artifact 血缘、evaluation 与实验归因 | `learning/03` |
 | 五个必会问题、追问卡、评分与复测记录 | `learning/04` |
-| 可执行命令、五分钟展示顺序、失败备用方案 | `interview/demo` |
+| macOS 核心命令实操顺序、断点和观察记录 | `learning/05` |
+| 五分钟展示取舍、现场话术、失败备用方案 | `interview/demo` |
 | 项目口径、架构取舍、理解成本硬约束、质疑应答 | `interview/strategy` |
 | 第三方原始材料 | `interview/references` |
 | 真实面试复盘 | `records/interviews` |
@@ -81,7 +85,7 @@
 1. 运行时事实、公开能力或正式证据：更新 NanoHarness 主仓库。
 2. 实际开发故障：追加到公开开发故障档案，保留现象到验证的完整链路。
 3. 真实面试及其复盘：保存到 `records/interviews`，不能只留下提炼答案。
-4. 帮助理解已有能力：合并进 `learning/01`、`02` 或 `03`。
+4. 帮助理解已有能力：合并进 `learning/01`、`02` 或 `03`；完整实操步骤只进入 `learning/05`。
 5. 脱离真实事件的新练习题或一次答错：只进入 `learning/04` 的追问和复测记录。
 6. 现场演示动作：更新五分钟演示脚本。
 7. 定位、架构取舍或治理约束：更新现有 strategy owner。
