@@ -84,6 +84,42 @@ SWE-bench 适合验证 repository-level code repair，因为它提供真实 issu
 和可执行测试；它不能覆盖 approval stale、Memory 生命周期或 Fanout 冲突，这些由确定性 regression
 测试证明。
 
+## 亲手走一次 astropy Case
+
+先只读输入，不花 API：
+
+```bash
+forge bench case astropy__astropy-12907
+```
+
+确认 `instance_id -> issue -> base_commit -> FAIL_TO_PASS/PASS_TO_PASS`，并确认默认输出没有 gold
+patch/test patch。然后配置 `DEEPSEEK_API_KEY`，跑一次低预算 Single-Agent case，先不加 `--evaluate`：
+
+```bash
+forge bench swebench --instance-id astropy__astropy-12907 \
+  --provider deepseek --model deepseek-chat --max-steps 8
+forge inspect <benchmark-run-or-case-dir>
+```
+
+只检查四件事：Agent 实际读了什么、`patch.diff` 是否由本次 run 产生、本地测试实际执行了什么、
+Run Story 有没有把缺失的 official outcome 显示为 `Unknown/not_evaluated`。Official 留到已安装
+SWE-bench Harness 的 WSL/Linux/容器环境；API key 不等于 official 环境已经可用。
+
+### pytest 与 Tool 调用的真实位置
+
+```bash
+python -m pytest astropy/modeling/tests/test_separable.py
+```
+
+`pytest` 是第三方 Python 测试运行器；`python -m` 保证使用当前虚拟环境的解释器，后面的路径限定
+收集和运行哪个测试文件。`RunCommandTool.schema()`/`DiagnosticsTool.schema()` 只向模型公开工具名、
+参数和必填项；Tool Gateway 校验后调用 `execute()`，后者才经 Execution Environment/subprocess
+启动 pytest。面试时沿 `schema -> ToolCall -> ToolGateway.execute -> Tool.execute -> process evidence`
+回答，不要说“schema 执行了命令”。
+
+Local verified 必须能返回 test kind、target/argv、exit code 和输出。若 pytest 未收集测试、依赖缺失，
+或只是把 `.py` 当普通脚本执行，应记为 failed/unavailable，而不是 local verified。
+
 ## Failure Taxonomy：把行动指回 owner
 
 ```text
